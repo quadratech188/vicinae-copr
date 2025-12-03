@@ -12,6 +12,7 @@ BuildRequires: g++
 BuildRequires: cmake
 BuildRequires: npm
 BuildRequires: ninja-build
+BuildRequires: mold
 
 BuildRequires: qt6-qtbase-devel 
 BuildRequires: qt6-qtsvg-devel 
@@ -52,8 +53,9 @@ access to common system actions.
 
 %build
 # vicinae overrides compile flags if CMAKE_BUILD_TYPE is not set
+# Build xdgpp statically for now
 # TODO: Make patch
-%cmake -G Ninja -DCMAKE_BUILD_TYPE=None
+%cmake -G Ninja -DCMAKE_BUILD_TYPE=None -DBUILD_SHARED_LIBS=OFF
 %cmake_build
 
 %install
