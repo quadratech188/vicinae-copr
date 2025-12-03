@@ -5,8 +5,7 @@ Summary: A focused launcher for your desktop - native, fast, extensible
 
 License: GPLv3
 URL: https://github.com/vicinaehq/vicinae
-Source0: https://github.com/vicinaehq/vicinae/releases/download/v%{version}/vicinae-linux-x86_64-v%{version}.tar.gz
-
+Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
 BuildRequires: gcc
 # Requires:
 
