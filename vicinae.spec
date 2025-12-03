@@ -17,21 +17,15 @@ BuildRequires: gcc
 
 
 %build
-%configure
-%make_build
-
+%cmake
+%cmake_build
 
 %install
-%make_install
-
-
-%check
-
+%cmake_install
 
 %files
 %license
 %doc
-
 
 %changelog
 %autochangelog
