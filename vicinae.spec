@@ -12,7 +12,6 @@ BuildRequires: g++
 BuildRequires: cmake
 BuildRequires: npm
 BuildRequires: ninja-build
-BuildRequires: mold
 
 BuildRequires: qt6-qtbase-devel 
 BuildRequires: qt6-qtsvg-devel 
