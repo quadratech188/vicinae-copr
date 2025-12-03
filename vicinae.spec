@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.16.11
-Release: 3
+Release: 4
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -70,6 +70,9 @@ access to common system actions.
 %license LICENSE
 
 %changelog
+* Wed Dec 03 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-4
+- Remove mold (quadratech188@gmail.com)
+
 * Wed Dec 03 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-3
 - Test auto rebuild
 
