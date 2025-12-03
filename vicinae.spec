@@ -69,5 +69,8 @@ access to common system actions.
 %license LICENSE
 
 %changelog
+* Wed Dec 03 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-1
+- new package built with tito
+
 %autochangelog
 
