@@ -20,6 +20,8 @@ def prepare_files(version: str):
     prev_version = prev_version_match.group('version')
 
     spec_text = spec_text.replace(f'Version: {prev_version}', f'Version: {version}')
+    spec_text = re.sub('Release: .+\n', 'Release: 0%{?dist}\n', spec_text)
+
     with open('./vicinae.spec', 'w') as f:
         _ = f.write(spec_text)
 
@@ -44,10 +46,10 @@ print('Prev hash:', prev_hash)
 
 try:
     prepare_files(version)
-    _ = subprocess.run(['git', 'add', './vicinae.spec', f'./v{version}.tar.gz'])
-    # _ = subprocess.run(['git', 'commit', '-m', f'chore: Bump to v{version}'])
-    # _ = subprocess.run(['tito', 'tag', '--accept-auto-changelog'])
-    # _ = subprocess.run(['git', 'push', '--follow-tags'])
+    _ = subprocess.run(['git', 'add', '.'])
+    _ = subprocess.run(['git', 'commit', '-m', f'chore: Bump to v{version}'])
+    _ = subprocess.run(['tito', 'tag', '--accept-auto-changelog'])
+    _ = subprocess.run(['git', 'push', '--follow-tags'])
 except Exception as e:
     print('Error occured:', e)
     _ = subprocess.run(['git', 'reset', '--hard', prev_hash])
