@@ -60,7 +60,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 # Build xdgpp statically for now
 # TODO: Make patch
 %cmake -G Ninja -DCMAKE_BUILD_TYPE=Custom -DBUILD_SHARED_LIBS=OFF \
-	-DVICINAE_GIT_TAG=${VICINAE_GIT_TAG} \
+	-DVICINAE_GIT_TAG=v%{version} \
 	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH}
 %cmake_build
 
