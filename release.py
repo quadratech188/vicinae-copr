@@ -22,12 +22,6 @@ def prepare_files(version: str):
     prev_v = list(map(int, prev_version.split('.')))
     v = list(map(int, version.split('.')))
 
-    if len(prev_v) != len(v):
-        raise Exception('Version formats don\'t match')
-
-    if prev_v >= v:
-        raise Exception('Version decreased')
-
     spec_text = spec_text.replace(f'Version: {prev_version}', f'Version: {version}')
     spec_text = re.sub('Release: .+\n', 'Release: 0%{?dist}\n', spec_text)
 
