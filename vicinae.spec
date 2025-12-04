@@ -12,6 +12,7 @@ BuildRequires: g++
 BuildRequires: cmake
 BuildRequires: npm
 BuildRequires: ninja-build
+BuildRequires: yq
 
 BuildRequires: qt6-qtbase-devel 
 BuildRequires: qt6-qtsvg-devel 
@@ -51,10 +52,16 @@ access to common system actions.
 
 
 %build
+
+VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
+VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
+
 # vicinae overrides compile flags if CMAKE_BUILD_TYPE is not set
 # Build xdgpp statically for now
 # TODO: Make patch
-%cmake -G Ninja -DCMAKE_BUILD_TYPE=None -DBUILD_SHARED_LIBS=OFF
+%cmake -G Ninja -DCMAKE_BUILD_TYPE=Custom -DBUILD_SHARED_LIBS=OFF \
+	-DVICINAE_GIT_TAG=${VICINAE_GIT_TAG} \
+	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH}
 %cmake_build
 
 %install
