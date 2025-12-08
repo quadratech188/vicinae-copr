@@ -27,4 +27,4 @@ def check():
     with open('./prev_v', 'w') as f:
         _ = f.write(v)
     
-    return v if v_list >= prev_v_list else None
+    return v if v_list > prev_v_list else None
