@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.17.0
-Release: 0%{?dist}
+Release: 1%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -77,6 +77,9 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %license LICENSE
 
 %changelog
+* Sun Dec 21 2025 Quadratech188 <quadratech188@gmail.com> 0.17.0-1
+- chore: Bump to v0.17.0 (quadratech188@gmail.com)
+
 * Tue Dec 09 2025 Quadratech188 <quadratech188@gmail.com> 0.16.14-1
 - chore: Bump to v0.16.14 (quadratech188@gmail.com)
 - fix: Fix wrong version check (quadratech188@gmail.com)
