@@ -77,6 +77,10 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_datadir}/vicinae/themes/*
 %license LICENSE
 
+# I should configure glaze in some way to prevent install, but I just hate dealing with CMake
+%exclude %{_includedir}/glaze/*
+%exclude %{_datadir}/glaze/*
+
 %changelog
 * Mon Dec 22 2025 Quadratech188 <quadratech188@gmail.com> 0.17.1-2
 - fix: Add git to dependencies to allow fetching glaze
