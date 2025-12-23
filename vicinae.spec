@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.17.2
-Release: 0%{?dist}
+Release: 1%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -78,6 +78,11 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %license LICENSE
 
 %changelog
+* Tue Dec 23 2025 Quadratech188 <quadratech188@gmail.com> 0.17.2-1
+- chore: Bump to v0.17.2 (quadratech188@gmail.com)
+- fix: glaze headers aren't installed in vicinae >= 0.17.2
+  (quadratech188@gmail.com)
+
 * Mon Dec 22 2025 Quadratech188 <quadratech188@gmail.com> 0.17.1-3
 - fix: Ignore files installed by glaze (quadratech188@gmail.com)
 
