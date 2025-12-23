@@ -63,7 +63,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %cmake -G Ninja -DCMAKE_BUILD_TYPE=Custom -DBUILD_SHARED_LIBS=OFF \
 	-DVICINAE_GIT_TAG=v%{version} \
 	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH}
-%cmake_build
+%cmake_build -j6
 
 %install
 %cmake_install
@@ -76,10 +76,6 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
 %{_datadir}/vicinae/themes/*
 %license LICENSE
-
-# I should configure glaze in some way to prevent install, but I just hate dealing with CMake
-%exclude %{_includedir}/glaze/*
-%exclude %{_datadir}/glaze/*
 
 %changelog
 * Mon Dec 22 2025 Quadratech188 <quadratech188@gmail.com> 0.17.1-3
