@@ -136,7 +136,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 - feat: Add release script (quadratech188@gmail.com)
 
 * Thu Dec 04 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-11
-- 
+- PLACEHOLDER
 
 * Thu Dec 04 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-10
 - fix: Use version info instead of manifest.yaml (quadratech188@gmail.com)
@@ -153,7 +153,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 * Thu Dec 04 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-6
 - Test auto rebuild
 
-* Thu Dec 04 2025 Quadratech188 <quadratech188@gmail.com>
+* Thu Dec 04 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-5
 - Test autorebuild
 
 * Wed Dec 03 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-4
@@ -163,12 +163,6 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 - Test auto rebuild
 
 * Wed Dec 03 2025 Quadratech188 <quadratech188@gmail.com> 0.16.11-2
-- Make Release field use tito's release var (quadratech188@gmail.com)
-- Embed xdgpp statically (quadratech188@gmail.com)
-- Update README.md (117572566+quadratech188@users.noreply.github.com)
-- Create README (117572566+quadratech188@users.noreply.github.com)
-
-* Wed Dec 03 2025 Quadratech188 <quadratech188@gmail.com>
 - Make Release field use tito's release var (quadratech188@gmail.com)
 - Embed xdgpp statically (quadratech188@gmail.com)
 - Update README.md (117572566+quadratech188@users.noreply.github.com)
