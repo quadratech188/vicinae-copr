@@ -51,7 +51,7 @@ Vicinae is designed for developers and power users who want fast, keyboard-first
 access to common system actions.
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
