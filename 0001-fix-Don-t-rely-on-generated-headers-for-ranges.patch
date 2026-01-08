@@ -1,4 +1,4 @@
-From 487257e4324c9ceab82587b7be33a73ead41f56e Mon Sep 17 00:00:00 2001
+From 926bc1b397150fe18032cd4500b05e2c3e6e6642 Mon Sep 17 00:00:00 2001
 From: Quadratech188 <quadratech188@gmail.com>
 Date: Thu, 8 Jan 2026 22:40:42 +0900
 Subject: [PATCH] fix: Don't rely on generated headers for <ranges>
