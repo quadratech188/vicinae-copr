@@ -1,12 +1,13 @@
-From 5c597136ab10fd4473ecb91627b9dc700ed4b867 Mon Sep 17 00:00:00 2001
+From 487257e4324c9ceab82587b7be33a73ead41f56e Mon Sep 17 00:00:00 2001
 From: Quadratech188 <quadratech188@gmail.com>
 Date: Thu, 8 Jan 2026 22:40:42 +0900
 Subject: [PATCH] fix: Don't rely on generated headers for <ranges>
 
 ---
- vicinae/src/ext-clip/app.cpp               | 1 +
- vicinae/src/script/script-command-file.cpp | 1 +
- 2 files changed, 2 insertions(+)
+ vicinae/src/ext-clip/app.cpp                                   | 1 +
+ vicinae/src/script/script-command-file.cpp                     | 1 +
+ vicinae/src/services/script-command/script-command-service.cpp | 1 +
+ 3 files changed, 3 insertions(+)
 
 diff --git a/vicinae/src/ext-clip/app.cpp b/vicinae/src/ext-clip/app.cpp
 index dc0edf1c..89da5524 100644
@@ -29,6 +30,18 @@ index ba161280..d7306bde 100644
  #include "script/script-command-file.hpp"
  #include "emoji/emoji.hpp"
  #include "services/script-command/script-command-service.hpp"
+diff --git a/vicinae/src/services/script-command/script-command-service.cpp b/vicinae/src/services/script-command/script-command-service.cpp
+index fb44717f..9faa7b85 100644
+--- a/vicinae/src/services/script-command/script-command-service.cpp
++++ b/vicinae/src/services/script-command/script-command-service.cpp
+@@ -2,6 +2,7 @@
+ #include "script/script-scanner.hpp"
+ #include "xdgpp/env/env.hpp"
+ #include <algorithm>
++#include <ranges>
+ #include <QtConcurrentRun>
+ 
+ ScriptCommandService::ScriptCommandService() {
 -- 
 2.52.0
 
