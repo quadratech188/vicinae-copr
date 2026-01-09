@@ -1,6 +1,6 @@
 Name: vicinae
-Version: 0.18.2
-Release: 7%{?dist}
+Version: 0.18.3
+Release: 0%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
