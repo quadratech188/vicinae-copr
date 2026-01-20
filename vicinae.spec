@@ -76,6 +76,12 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_datadir}/applications/vicinae-url-handler.desktop
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
 %{_datadir}/vicinae/themes/*
+
+/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
+/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
+# Probably a mistake
+%exclude /usr/lib/libbrowser.a
+
 %license LICENSE
 
 %changelog
