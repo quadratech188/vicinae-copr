@@ -47,6 +47,7 @@ def update(version: str):
     print('Prev hash:', prev_hash)
 
     try:
+        _ = subprocess.run(['git', 'pull'])
         prepare_files(version)
         _ = subprocess.run(['git', 'add', '.'])
         _ = subprocess.run(['git', 'commit', '-m', f'chore: Bump to v{version}'])
