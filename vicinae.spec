@@ -1,5 +1,5 @@
 Name: vicinae
-Version: 0.19.5
+Version: 0.19.4
 Release: 1%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
@@ -71,6 +71,11 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
 %files
 %{_bindir}/vicinae
+%{_libexecdir}/vicinae/vicinae-browser-link
+%{_libexecdir}/vicinae/vicinae-data-control-server
+%{_libexecdir}/vicinae/vicinae-server
+%{_libexecdir}/vicinae/vicinae-snippet-server
+
 %{_prefix}/lib/systemd/user/vicinae.service
 %{_datadir}/applications/vicinae.desktop
 %{_datadir}/applications/vicinae-url-handler.desktop
@@ -79,8 +84,6 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
 /etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
 /usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
-# Probably a mistake
-%exclude /usr/lib/libbrowser.a
 
 %license LICENSE
 
