@@ -34,6 +34,7 @@ BuildRequires: abseil-cpp-devel
 BuildRequires: protobuf-devel 
 BuildRequires: cmark-gfm-devel
 BuildRequires: libicu-devel
+BuildRequires: kf6-syntax-highlighting-devel
 
 %description
 Vicinae (pronounced "vih-SIN-ay") is a high-performance, native launcher for
