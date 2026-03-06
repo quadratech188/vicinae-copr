@@ -77,11 +77,13 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_libexecdir}/vicinae/vicinae-server
 %{_libexecdir}/vicinae/vicinae-snippet-server
 
-%{_prefix}/lib/systemd/user/vicinae.service
-%{_datadir}/applications/vicinae.desktop
 %{_datadir}/applications/vicinae-url-handler.desktop
+%{_datadir}/applications/vicinae.desktop
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
 %{_datadir}/vicinae/themes/*
+%{_prefix}/lib/modules-load.d/vicinae.conf
+%{_prefix}/lib/systemd/user/vicinae.service
+%{_prefix}/lib/udev/rules.d/70-vicinae.rules
 
 %{_datadir}/vicinae/native-messaging-hosts/com.vicinae.vicinae.chromium.json.in
 %{_datadir}/vicinae/native-messaging-hosts/com.vicinae.vicinae.firefox.json.in
