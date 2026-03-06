@@ -78,6 +78,8 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_libexecdir}/vicinae/vicinae-snippet-server
 
 %{_prefix}/lib/systemd/user/vicinae.service
+%{_prefix}/lib/udev/rules.d/70-vicinae.rules
+%{_prefix}/lib/modules-load.d/vicinae.conf
 %{_datadir}/applications/vicinae.desktop
 %{_datadir}/applications/vicinae-url-handler.desktop
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
