@@ -8,33 +8,33 @@ URL: https://github.com/vicinaehq/vicinae
 Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
 
 # https://docs.vicinae.com/build#build-requirements
-BuildRequires: git
-BuildRequires: g++
-BuildRequires: cmake
-BuildRequires: npm
-BuildRequires: ninja-build
-BuildRequires: yq
 
-BuildRequires: qt6-qtbase-devel 
-BuildRequires: qt6-qtsvg-devel 
-BuildRequires: qt6-qtbase-private-devel 
-BuildRequires: qt6-qtwayland-devel 
-BuildRequires: layer-shell-qt-devel 
-BuildRequires: libqalculate-devel 
-BuildRequires: minizip-devel 
-BuildRequires: rapidfuzz-cpp-devel 
-BuildRequires: qtkeychain-qt6-devel 
-BuildRequires: openssl-devel 
-BuildRequires: wayland-devel 
+BuildRequires: abseil-cpp-devel 
+BuildRequires: cmake
+BuildRequires: cmark-gfm-devel
+BuildRequires: g++
+BuildRequires: git
 BuildRequires: glibc-static 
+BuildRequires: kf6-syntax-highlighting-devel
+BuildRequires: layer-shell-qt-devel 
+BuildRequires: libicu-devel
+BuildRequires: libqalculate-devel 
 BuildRequires: libstdc++-static 
+BuildRequires: minizip-devel 
+BuildRequires: ninja-build
+BuildRequires: npm
+BuildRequires: openssl-devel 
+BuildRequires: protobuf-devel 
+BuildRequires: qt6-qtbase-devel 
+BuildRequires: qt6-qtbase-private-devel 
+BuildRequires: qt6-qtsvg-devel 
+BuildRequires: qt6-qtwayland-devel 
+BuildRequires: qtkeychain-qt6-devel 
+BuildRequires: rapidfuzz-cpp-devel 
+BuildRequires: wayland-devel 
+BuildRequires: yq
 BuildRequires: zlib-devel 
 BuildRequires: zlib-static 
-BuildRequires: abseil-cpp-devel 
-BuildRequires: protobuf-devel 
-BuildRequires: cmark-gfm-devel
-BuildRequires: libicu-devel
-BuildRequires: kf6-syntax-highlighting-devel
 
 %description
 Vicinae (pronounced "vih-SIN-ay") is a high-performance, native launcher for
@@ -58,13 +58,13 @@ access to common system actions.
 VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
-# vicinae overrides compile flags if CMAKE_BUILD_TYPE is not set
-# Build xdgpp statically for now
-# TODO: Make patch
-%cmake -G Ninja -DCMAKE_BUILD_TYPE=Custom -DBUILD_SHARED_LIBS=OFF \
+%cmake -G Ninja \
+	-DVICINAE_PROVENANCE=copr \
 	-DVICINAE_GIT_TAG=v%{version} \
 	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH}
-%cmake_build -j6
+	-DCMAKE_BUILD_TYPE=Release \
+	-DBUILD_SHARED_LIBS=OFF \
+%cmake_build
 
 %install
 %cmake_install
