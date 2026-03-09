@@ -60,11 +60,12 @@ v = get_v()
 
 if v <= prev_v: exit()
 
-_ = subprocess.run(['git', 'pull'])
+_ = subprocess.run(['git', 'pull'], check=True)
 
 prev_hash = subprocess.run(
     ['git', 'rev-parse', 'HEAD'],
-    capture_output=True, text=True
+    capture_output=True, text=True,
+    check=True
 ).stdout.rstrip('\n')
 
 update_spec(v)
@@ -72,10 +73,10 @@ update_tarball(prev_v, v)
 update_prev_v(v)
 
 try:
-    _ = subprocess.run(['git', 'add', '.'])
-    _ = subprocess.run(['git', 'commit', '-m', f'chore: Bump to v{'.'.join(map(str, v))}'])
-    _ = subprocess.run(['tito', 'tag', '--accept-auto-changelog'])
-    _ = subprocess.run(['git', 'push', '--follow-tags'])
+    _ = subprocess.run(['git', 'add', '.'], check=True)
+    _ = subprocess.run(['git', 'commit', '-m', f'chore: Bump to v{'.'.join(map(str, v))}'], check=True)
+    _ = subprocess.run(['tito', 'tag', '--accept-auto-changelog'], check=True)
+    _ = subprocess.run(['git', 'push', '--follow-tags'], check=True)
 except Exception as e:
-    _ = subprocess.run(['git', 'reset', '--hard', prev_hash])
+    _ = subprocess.run(['git', 'reset', '--hard', prev_hash], check=True)
     raise e
