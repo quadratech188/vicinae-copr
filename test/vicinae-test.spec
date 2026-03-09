@@ -1,6 +1,6 @@
 Name: vicinae-test
 Version: 0.20.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -92,6 +92,9 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %license LICENSE
 
 %changelog
+* Mon Mar 09 2026 Quadratech188 <quadratech188@gmail.com> 0.20.4-2
+- test: Configure test build (quadratech188@gmail.com)
+
 * Mon Mar 09 2026 Quadratech188 <quadratech188@gmail.com> 0.20.4-1
 - new package built with tito
 
