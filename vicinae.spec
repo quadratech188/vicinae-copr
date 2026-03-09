@@ -65,7 +65,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %cmake -G Ninja -DCMAKE_BUILD_TYPE=Custom -DBUILD_SHARED_LIBS=OFF \
 	-DVICINAE_GIT_TAG=v%{version} \
 	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH}
-%cmake_build -j6
+%cmake_build
 
 %install
 %cmake_install
