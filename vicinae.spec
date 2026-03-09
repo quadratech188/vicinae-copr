@@ -59,12 +59,12 @@ access to common system actions.
 VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
-# vicinae overrides compile flags if CMAKE_BUILD_TYPE is not set
-# Build xdgpp statically for now
-# TODO: Make patch
-%cmake -G Ninja -DCMAKE_BUILD_TYPE=Custom -DBUILD_SHARED_LIBS=OFF \
+%cmake -G Ninja \
+	-DVICINAE_PROVENANCE=copr \
 	-DVICINAE_GIT_TAG=v%{version} \
-	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH}
+	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH} \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DBUILD_SHARED_LIBS=OFF \
 %cmake_build
 
 %install
