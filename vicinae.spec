@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.20.15
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -95,6 +95,9 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %license LICENSE
 
 %changelog
+* Tue May 12 2026 Quadratech188 <quadratech188@gmail.com> 0.20.15-3
+- fix: Use correct nodejs recommend (quadratech188@gmail.com)
+
 * Tue May 12 2026 Quadratech188 <quadratech188@gmail.com> 0.20.15-2
 - fix: Add node to recommends (quadratech188@gmail.com)
 
