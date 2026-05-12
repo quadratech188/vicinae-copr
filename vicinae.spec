@@ -36,7 +36,7 @@ BuildRequires: cmark-gfm-devel
 BuildRequires: libicu-devel
 BuildRequires: kf6-syntax-highlighting-devel
 
-Recommends: node
+Recommends: nodejs(engine)
 
 %description
 Vicinae (pronounced "vih-SIN-ay") is a high-performance, native launcher for
