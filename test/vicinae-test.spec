@@ -1,6 +1,6 @@
 Name: vicinae-test
 Version: 0.21.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -109,6 +109,9 @@ cp %{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json \
 %license LICENSE
 
 %changelog
+* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-4
+- fix: Add saturate-fix.patch to vicinae-test (quadratech188@gmail.com)
+
 * Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-3
 - test: Test 0.21.0 changes (quadratech188@gmail.com)
 
