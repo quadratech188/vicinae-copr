@@ -56,7 +56,7 @@ Vicinae is designed for developers and power users who want fast, keyboard-first
 access to common system actions.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n vicinae-%{version}
 
 
 %build
@@ -77,27 +77,35 @@ CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 %install
 %cmake_install
 
+mkdir -p %{buildroot}/etc/chromium/native-messaging-hosts
+cp %{buildroot}%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json \
+	%{buildroot}/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
+
+mkdir -p %{buildroot}/usr/lib/mozilla/native-messaging-hosts
+cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json \
+	%{buildroot}/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
+
 %files
 %{_bindir}/vicinae
 %{_libexecdir}/vicinae/vicinae-browser-link
 %{_libexecdir}/vicinae/vicinae-data-control-server
 %{_libexecdir}/vicinae/vicinae-server
-%{_libexecdir}/vicinae/vicinae-snippet-server
+
+%caps(cap_dac_override+ep) %{_libexecdir}/vicinae/vicinae-input-server
 
 %{_prefix}/lib/systemd/user/vicinae.service
-%{_prefix}/lib/udev/rules.d/70-vicinae.rules
 %{_prefix}/lib/modules-load.d/vicinae.conf
 %{_datadir}/applications/vicinae.desktop
 %{_datadir}/applications/vicinae-url-handler.desktop
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
 %{_datadir}/vicinae/themes/*
 
-%{_datadir}/vicinae/native-messaging-hosts/com.vicinae.vicinae.chromium.json.in
-%{_datadir}/vicinae/native-messaging-hosts/com.vicinae.vicinae.firefox.json.in
+%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json
+%{_datadir}/vicinae/native-host/com.vicinae.vicinae.chromium.json.in
+%{_datadir}/vicinae/native-host/com.vicinae.vicinae.firefox.json.in
+%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json
 /etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
 /usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
-
-%license LICENSE
 
 %changelog
 * Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-2
