@@ -77,11 +77,16 @@ CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 %install
 %cmake_install
 
-cp %{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json \
-	/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
+/usr/share/vicinae/native-host/chromium/com.vicinae.vicinae.json
+/usr/share/vicinae/native-host/chromium/com.vicinae.vicinae.json
 
-cp %{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json \
-	/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
+mkdir -p %{buildroot}/etc/chromium/native-messaging-hosts
+cp %{buildroot}%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json \
+	%{buildroot}/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
+
+mkdir -p %{buildroot}/usr/lib/mozilla/native-messaging-hosts
+cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json \
+	%{buildroot}/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
 
 %files
 %{_bindir}/vicinae
