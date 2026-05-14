@@ -7,8 +7,6 @@ License: GPLv3
 URL: https://github.com/vicinaehq/vicinae
 Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
 
-Patch0: saturate-fix.patch
-
 # https://docs.vicinae.com/build#build-requirements
 BuildRequires: git
 BuildRequires: g++
