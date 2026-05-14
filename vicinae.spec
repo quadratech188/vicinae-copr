@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.21.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -21,7 +21,7 @@ BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qtsvg-devel 
 BuildRequires: qt6-qtbase-private-devel 
 BuildRequires: qt6-qtwayland-devel 
-BuildRequires: qt6-qtshadertools.devel
+BuildRequires: qt6-qtshadertools-devel
 BuildRequires: layer-shell-qt-devel 
 BuildRequires: libqalculate-devel 
 BuildRequires: minizip-devel 
@@ -100,6 +100,9 @@ CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 %license LICENSE
 
 %changelog
+* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-2
+- fix: Add qt6-qtshadertools-devel to dependencies (quadratech188@gmail.com)
+
 * Thu May 14 2026 quadratech188 <quadratech188@gmail.com> 0.21.0-1
 - chore: Bump to v0.21.0 (quadratech188@gmail.com)
 
