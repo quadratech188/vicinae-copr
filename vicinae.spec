@@ -39,6 +39,7 @@ BuildRequires: cmark-gfm-devel
 BuildRequires: libicu-devel
 BuildRequires: kf6-syntax-highlighting-devel
 
+Requires: layer-shell-qt
 Recommends: nodejs(engine)
 
 %description
