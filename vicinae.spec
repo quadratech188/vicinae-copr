@@ -21,6 +21,7 @@ BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qtsvg-devel 
 BuildRequires: qt6-qtbase-private-devel 
 BuildRequires: qt6-qtwayland-devel 
+BuildRequires: qt6-qtshadertools.devel
 BuildRequires: layer-shell-qt-devel 
 BuildRequires: libqalculate-devel 
 BuildRequires: minizip-devel 
