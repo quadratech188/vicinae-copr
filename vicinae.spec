@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.21.0
-Release: 0%{?dist}
+Release: 1%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -99,6 +99,9 @@ CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 %license LICENSE
 
 %changelog
+* Thu May 14 2026 quadratech188 <quadratech188@gmail.com> 0.21.0-1
+- chore: Bump to v0.21.0 (quadratech188@gmail.com)
+
 * Wed May 13 2026 Quadratech188 <quadratech188@gmail.com> 0.20.15-4
 - fix: Polyfill saturate_cast required by qt6-qtbase-devel
   (quadratech188@gmail.com)
