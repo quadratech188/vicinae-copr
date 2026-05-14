@@ -1,6 +1,6 @@
 Name: vicinae-test
 Version: 0.21.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -112,6 +112,9 @@ cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json 
 %license LICENSE
 
 %changelog
+* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-7
+- test: Try removing C++26 fix (quadratech188@gmail.com)
+
 * Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-6
 - fix Includ %%{buildroot} in commands (quadratech188@gmail.com)
 
