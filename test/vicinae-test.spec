@@ -1,40 +1,45 @@
 Name: vicinae-test
-Version: 0.20.4
-Release: 3%{?dist}
+Version: 0.21.0
+Release: 2%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
 URL: https://github.com/vicinaehq/vicinae
 Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
 
-# https://docs.vicinae.com/build#build-requirements
+Patch0: saturate-fix.patch
 
-BuildRequires: abseil-cpp-devel 
-BuildRequires: cmake
-BuildRequires: cmark-gfm-devel
-BuildRequires: g++
+# https://docs.vicinae.com/build#build-requirements
 BuildRequires: git
-BuildRequires: glibc-static 
-BuildRequires: kf6-syntax-highlighting-devel
-BuildRequires: layer-shell-qt-devel 
-BuildRequires: libicu-devel
-BuildRequires: libqalculate-devel 
-BuildRequires: libstdc++-static 
-BuildRequires: minizip-devel 
-BuildRequires: ninja-build
+BuildRequires: g++
+BuildRequires: cmake
 BuildRequires: npm
-BuildRequires: openssl-devel 
-BuildRequires: protobuf-devel 
-BuildRequires: qt6-qtbase-devel 
-BuildRequires: qt6-qtbase-private-devel 
-BuildRequires: qt6-qtsvg-devel 
-BuildRequires: qt6-qtwayland-devel 
-BuildRequires: qtkeychain-qt6-devel 
-BuildRequires: rapidfuzz-cpp-devel 
-BuildRequires: wayland-devel 
+BuildRequires: ninja-build
 BuildRequires: yq
+
+BuildRequires: qt6-qtbase-devel 
+BuildRequires: qt6-qtsvg-devel 
+BuildRequires: qt6-qtbase-private-devel 
+BuildRequires: qt6-qtwayland-devel 
+BuildRequires: qt6-qtshadertools-devel
+BuildRequires: layer-shell-qt-devel 
+BuildRequires: libqalculate-devel 
+BuildRequires: minizip-devel 
+BuildRequires: rapidfuzz-cpp-devel 
+BuildRequires: qtkeychain-qt6-devel 
+BuildRequires: openssl-devel 
+BuildRequires: wayland-devel 
+BuildRequires: glibc-static 
+BuildRequires: libstdc++-static 
 BuildRequires: zlib-devel 
 BuildRequires: zlib-static 
+BuildRequires: abseil-cpp-devel 
+BuildRequires: protobuf-devel 
+BuildRequires: cmark-gfm-devel
+BuildRequires: libicu-devel
+BuildRequires: kf6-syntax-highlighting-devel
+
+Recommends: nodejs(engine)
 
 %description
 Vicinae (pronounced "vih-SIN-ay") is a high-performance, native launcher for
@@ -51,12 +56,15 @@ Vicinae is designed for developers and power users who want fast, keyboard-first
 access to common system actions.
 
 %prep
-%autosetup -p1 -n vicinae-%{version}
+%autosetup -p1
+
 
 %build
 
 VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
+
+CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 
 %cmake -G Ninja \
 	-DVICINAE_PROVENANCE=copr \
@@ -69,37 +77,100 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %install
 %cmake_install
 
+cp %{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json \
+	/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
+
+cp %{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json \
+	/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
+
 %files
 %{_bindir}/vicinae
 %{_libexecdir}/vicinae/vicinae-browser-link
 %{_libexecdir}/vicinae/vicinae-data-control-server
 %{_libexecdir}/vicinae/vicinae-server
-%{_libexecdir}/vicinae/vicinae-snippet-server
+
+%caps(cap_dac_override+ep) %{_libexecdir}/vicinae/vicinae-input-server
 
 %{_prefix}/lib/systemd/user/vicinae.service
-%{_prefix}/lib/udev/rules.d/70-vicinae.rules
 %{_prefix}/lib/modules-load.d/vicinae.conf
 %{_datadir}/applications/vicinae.desktop
 %{_datadir}/applications/vicinae-url-handler.desktop
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
 %{_datadir}/vicinae/themes/*
 
-%{_datadir}/vicinae/native-messaging-hosts/com.vicinae.vicinae.chromium.json.in
-%{_datadir}/vicinae/native-messaging-hosts/com.vicinae.vicinae.firefox.json.in
+%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json
+%{_datadir}/vicinae/native-host/com.vicinae.vicinae.chromium.json.in
+%{_datadir}/vicinae/native-host/com.vicinae.vicinae.firefox.json.in
+%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json
 /etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
 /usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
+
 
 %license LICENSE
 
 %changelog
-* Mon Mar 09 2026 Quadratech188 <quadratech188@gmail.com> 0.20.4-3
-- fix: typo (quadratech188@gmail.com)
+* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-2
+- fix: Add qt6-qtshadertools-devel to dependencies (quadratech188@gmail.com)
+
+* Thu May 14 2026 quadratech188 <quadratech188@gmail.com> 0.21.0-1
+- chore: Bump to v0.21.0 (quadratech188@gmail.com)
+
+* Wed May 13 2026 Quadratech188 <quadratech188@gmail.com> 0.20.15-4
+- fix: Polyfill saturate_cast required by qt6-qtbase-devel
+  (quadratech188@gmail.com)
+
+* Tue May 12 2026 Quadratech188 <quadratech188@gmail.com> 0.20.15-3
+- fix: Use correct nodejs recommend (quadratech188@gmail.com)
+
+* Tue May 12 2026 Quadratech188 <quadratech188@gmail.com> 0.20.15-2
+- fix: Add node to recommends (quadratech188@gmail.com)
+
+* Sun May 03 2026 quadratech188 <quadratech188@gmail.com> 0.20.15-1
+- chore: Bump to v0.20.15 (quadratech188@gmail.com)
+
+* Mon Apr 27 2026 quadratech188 <quadratech188@gmail.com> 0.20.14-1
+- chore: Bump to v0.20.14 (quadratech188@gmail.com)
+
+* Thu Apr 16 2026 quadratech188 <quadratech188@gmail.com> 0.20.13-1
+- chore: Bump to v0.20.13 (quadratech188@gmail.com)
+
+* Tue Apr 07 2026 quadratech188 <quadratech188@gmail.com> 0.20.12-1
+- chore: Bump to v0.20.12 (quadratech188@gmail.com)
+
+* Mon Apr 06 2026 quadratech188 <quadratech188@gmail.com> 0.20.11-1
+- chore: Bump to v0.20.11 (quadratech188@gmail.com)
+
+* Sun Apr 05 2026 quadratech188 <quadratech188@gmail.com> 0.20.10-1
+- chore: Bump to v0.20.10 (quadratech188@gmail.com)
+- fix: Remove patch (quadratech188@gmail.com)
+
+* Fri Mar 27 2026 quadratech188 <quadratech188@gmail.com> 0.20.9-1
+- chore: Bump to v0.20.9 (quadratech188@gmail.com)
+
+* Mon Mar 23 2026 quadratech188 <quadratech188@gmail.com> 0.20.8-1
+- chore: Bump to v0.20.8 (quadratech188@gmail.com)
+
+* Tue Mar 17 2026 quadratech188 <quadratech188@gmail.com> 0.20.7-1
+- chore: Bump to v0.20.7 (quadratech188@gmail.com)
+
+* Sun Mar 15 2026 Quadratech188 <quadratech188@gmail.com> 0.20.6-3
+- fix: Use Patch instead of Source (quadratech188@gmail.com)
+
+* Sun Mar 15 2026 Quadratech188 <quadratech188@gmail.com> 0.20.6-2
+- fix: Include unistd explicity (quadratech188@gmail.com)
+
+* Sun Mar 15 2026 quadratech188 <quadratech188@gmail.com> 0.20.6-1
+- chore: Bump to v0.20.6 (quadratech188@gmail.com)
+
+* Tue Mar 10 2026 quadratech188 <quadratech188@gmail.com> 0.20.5-1
+- chore: Bump to v0.20.5 (quadratech188@gmail.com)
+- fix: Check exit codes (quadratech188@gmail.com)
+- build: Rewrite update script (quadratech188@gmail.com)
 
 * Mon Mar 09 2026 Quadratech188 <quadratech188@gmail.com> 0.20.4-2
-- test: Configure test build (quadratech188@gmail.com)
-
-* Mon Mar 09 2026 Quadratech188 <quadratech188@gmail.com> 0.20.4-1
-- new package built with tito
+- refactor: Remove old workaround (quadratech188@gmail.com)
+* Mon Mar 09 2026 quadratech188 <quadratech188@gmail.com> 0.20.4-1
+- chore: Bump to v0.20.4 (quadratech188@gmail.com)
 
 * Fri Mar 06 2026 Quadratech188 <quadratech188@gmail.com> 0.20.3-2
 - fix: Add udev files (quadratech188@gmail.com)
