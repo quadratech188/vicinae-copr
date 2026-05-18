@@ -62,8 +62,6 @@ access to common system actions.
 VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
-CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
-
 %cmake -G Ninja \
 	-DVICINAE_PROVENANCE=copr \
 	-DVICINAE_GIT_TAG=v%{version} \
