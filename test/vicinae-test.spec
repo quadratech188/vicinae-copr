@@ -62,6 +62,8 @@ access to common system actions.
 VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
+CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
+
 %cmake -G Ninja \
 	-DVICINAE_PROVENANCE=copr \
 	-DVICINAE_GIT_TAG=v%{version} \
@@ -72,9 +74,6 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
 %install
 %cmake_install
-
-/usr/share/vicinae/native-host/chromium/com.vicinae.vicinae.json
-/usr/share/vicinae/native-host/chromium/com.vicinae.vicinae.json
 
 mkdir -p %{buildroot}/etc/chromium/native-messaging-hosts
 cp %{buildroot}%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json \
@@ -105,7 +104,6 @@ cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json 
 %{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json
 /etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
 /usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
-
 
 %license LICENSE
 
