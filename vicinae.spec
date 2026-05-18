@@ -7,8 +7,6 @@ License: GPLv3
 URL: https://github.com/vicinaehq/vicinae
 Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
 
-Patch0: saturate-fix.patch
-
 # https://docs.vicinae.com/build#build-requirements
 BuildRequires: git
 BuildRequires: g++
@@ -63,8 +61,6 @@ access to common system actions.
 
 VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
-
-CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 
 %cmake -G Ninja \
 	-DVICINAE_PROVENANCE=copr \
