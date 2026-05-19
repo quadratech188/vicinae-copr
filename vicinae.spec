@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.21.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -105,6 +105,9 @@ cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json 
 /usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
 
 %changelog
+* Tue May 19 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-6
+- feat: add explicit layer-shell-qt runtime dependency (gh@aurelle.dev)
+
 * Mon May 18 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-5
 - fix: Remove saturate-fix (quadratech188@gmail.com)
 * Mon May 18 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-4
