@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.21.5
-Release: 0%{?dist}
+Release: 1%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -105,6 +105,9 @@ cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json 
 /usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
 
 %changelog
+* Mon Jun 01 2026 quadratech188 <quadratech188@gmail.com> 0.21.5-1
+- chore: Bump to v0.21.5 (quadratech188@gmail.com)
+
 * Mon Jun 01 2026 quadratech188 <quadratech188@gmail.com> 0.21.4-1
 - chore: Bump to v0.21.4 (quadratech188@gmail.com)
 
