@@ -36,6 +36,7 @@ BuildRequires: protobuf-devel
 BuildRequires: cmark-gfm-devel
 BuildRequires: libicu-devel
 BuildRequires: kf6-syntax-highlighting-devel
+BuildRequires: xcb-util-keysyms-devel
 
 Requires: layer-shell-qt
 Recommends: nodejs(engine)
