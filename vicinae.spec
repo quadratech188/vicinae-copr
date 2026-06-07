@@ -88,6 +88,7 @@ cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json 
 %{_libexecdir}/vicinae/vicinae-browser-link
 %{_libexecdir}/vicinae/vicinae-data-control-server
 %{_libexecdir}/vicinae/vicinae-server
+%{_libexecdir}/vicinae/vicinae-file-indexer
 
 %caps(cap_dac_override+ep) %{_libexecdir}/vicinae/vicinae-input-server
 
