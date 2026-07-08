@@ -75,14 +75,6 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %install
 %cmake_install
 
-mkdir -p %{buildroot}/etc/chromium/native-messaging-hosts
-cp %{buildroot}%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json \
-	%{buildroot}/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
-
-mkdir -p %{buildroot}/usr/lib/mozilla/native-messaging-hosts
-cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json \
-	%{buildroot}/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
-
 %files
 %{_bindir}/vicinae
 %{_libexecdir}/vicinae/vicinae-browser-link
@@ -98,13 +90,6 @@ cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json 
 %{_datadir}/applications/vicinae-url-handler.desktop
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
 %{_datadir}/vicinae/themes/*
-
-%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json
-%{_datadir}/vicinae/native-host/com.vicinae.vicinae.chromium.json.in
-%{_datadir}/vicinae/native-host/com.vicinae.vicinae.firefox.json.in
-%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json
-/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
-/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
 
 %changelog
 * Wed Jul 08 2026 quadratech188 <quadratech188@gmail.com> 0.23.0-1
