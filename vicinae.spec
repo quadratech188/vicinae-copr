@@ -42,18 +42,30 @@ Requires: layer-shell-qt
 Recommends: nodejs(engine)
 
 %description
-Vicinae (pronounced "vih-SIN-ay") is a high-performance, native launcher for
-your desktop — built with C++ and Qt.
 
-It comes with a rich set of built-in modules and can be easily extended using
-the Typescript SDK.
+Vicinae (pronounced "vee-CHEE-nay") is a high-performance, native command
+palette for your desktop.
 
-Drawing inspiration from the Raycast launcher, Vicinae provides a mostly
-compatible extension API, allowing reuse of many existing Raycast extensions
-with minimal modification.
+Out of the box, Vicinae can be your:
 
-Vicinae is designed for developers and power users who want fast, keyboard-first
-access to common system actions.
+- app search
+- clipboard history
+- text expander (snippets)
+- file search
+- browser tab switcher
+- emoji picker
+- calculator
+- window switcher
+- font browser
+- volume controller
+
+When you need more, Vicinae can be extended in several ways:
+
+- React/Typescript extensions, compatible with the Raycast ecosystem. In-app
+  integration with the Vicinae store and the Raycast store.
+- Script commands, also compatible with the Raycast feature of the same name,
+  with special Vicinae additions.
+- dmenu style menu creation, the linux minimalist way!
 
 %prep
 %autosetup -p1 -n vicinae-%{version}
