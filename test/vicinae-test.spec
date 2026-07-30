@@ -1,57 +1,73 @@
 Name: vicinae-test
-Version: 0.21.0
-Release: 8%{?dist}
+Version: 0.24.0
+Release: 2%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
 URL: https://github.com/vicinaehq/vicinae
 Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
 
-# https://docs.vicinae.com/build#build-requirements
-BuildRequires: git
-BuildRequires: g++
 BuildRequires: cmake
-BuildRequires: npm
-BuildRequires: ninja-build
+BuildRequires: g++
+BuildRequires: git
+BuildRequires: mold
+BuildRequires: nodejs-npm
 BuildRequires: yq
 
-BuildRequires: qt6-qtbase-devel 
-BuildRequires: qt6-qtsvg-devel 
-BuildRequires: qt6-qtbase-private-devel 
-BuildRequires: qt6-qtwayland-devel 
-BuildRequires: qt6-qtshadertools-devel
-BuildRequires: layer-shell-qt-devel 
-BuildRequires: libqalculate-devel 
-BuildRequires: minizip-devel 
-BuildRequires: rapidfuzz-cpp-devel 
-BuildRequires: qtkeychain-qt6-devel 
-BuildRequires: openssl-devel 
-BuildRequires: wayland-devel 
-BuildRequires: glibc-static 
-BuildRequires: libstdc++-static 
-BuildRequires: zlib-devel 
-BuildRequires: zlib-static 
-BuildRequires: abseil-cpp-devel 
-BuildRequires: protobuf-devel 
-BuildRequires: cmark-gfm-devel
-BuildRequires: libicu-devel
-BuildRequires: kf6-syntax-highlighting-devel
+# CMakeLists.txt
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: pkgconfig(openssl)
 
+# src/server/CMakeLists.txt
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6GuiPrivate)
+BuildRequires: cmake(Qt6QuickDialogs2)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6ShaderTools)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(KF6SyntaxHighlighting)
+BuildRequires: cmake(LayerShellQt)
+BuildRequires: pkgconfig(xcb-keysyms)
+
+# Unspecified
+BuildRequires: cmake(Qt6Keychain)
+BuildRequires: pkgconfig(libcmark-gfm)
+BuildRequires: pkgconfig(libqalculate)
+
+Requires: qt6qml(org.kde.layershell)
 Recommends: nodejs(engine)
 
 %description
-Vicinae (pronounced "vih-SIN-ay") is a high-performance, native launcher for
-your desktop — built with C++ and Qt.
 
-It comes with a rich set of built-in modules and can be easily extended using
-the Typescript SDK.
+Vicinae (pronounced "vee-CHEE-nay") is a high-performance, native command
+palette for your desktop.
 
-Drawing inspiration from the Raycast launcher, Vicinae provides a mostly
-compatible extension API, allowing reuse of many existing Raycast extensions
-with minimal modification.
+Out of the box, Vicinae can be your:
 
-Vicinae is designed for developers and power users who want fast, keyboard-first
-access to common system actions.
+- app search
+- clipboard history
+- text expander (snippets)
+- file search
+- browser tab switcher
+- emoji picker
+- calculator
+- window switcher
+- font browser
+- volume controller
+
+When you need more, Vicinae can be extended in several ways:
+
+- React/Typescript extensions, compatible with the Raycast ecosystem. In-app
+  integration with the Vicinae store and the Raycast store.
+- Script commands, also compatible with the Raycast feature of the same name,
+  with special Vicinae additions.
+- dmenu style menu creation, the linux minimalist way!
 
 %prep
 %autosetup -p1 -n vicinae-%{version}
@@ -61,8 +77,6 @@ access to common system actions.
 
 VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
-
-CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 
 %cmake -G Ninja \
 	-DVICINAE_PROVENANCE=copr \
@@ -75,19 +89,12 @@ CXXFLAGS+=" -include ${PWD}/saturate_fix.h"
 %install
 %cmake_install
 
-mkdir -p %{buildroot}/etc/chromium/native-messaging-hosts
-cp %{buildroot}%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json \
-	%{buildroot}/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
-
-mkdir -p %{buildroot}/usr/lib/mozilla/native-messaging-hosts
-cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json \
-	%{buildroot}/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
-
 %files
 %{_bindir}/vicinae
 %{_libexecdir}/vicinae/vicinae-browser-link
 %{_libexecdir}/vicinae/vicinae-data-control-server
 %{_libexecdir}/vicinae/vicinae-server
+%{_libexecdir}/vicinae/vicinae-file-indexer
 
 %caps(cap_dac_override+ep) %{_libexecdir}/vicinae/vicinae-input-server
 
@@ -98,34 +105,74 @@ cp %{buildroot}%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json 
 %{_datadir}/icons/hicolor/512x512/apps/vicinae.png
 %{_datadir}/vicinae/themes/*
 
-%{_datadir}/vicinae/native-host/chromium/com.vicinae.vicinae.json
-%{_datadir}/vicinae/native-host/com.vicinae.vicinae.chromium.json.in
-%{_datadir}/vicinae/native-host/com.vicinae.vicinae.firefox.json.in
-%{_datadir}/vicinae/native-host/firefox/com.vicinae.vicinae.json
-/etc/chromium/native-messaging-hosts/com.vicinae.vicinae.json
-/usr/lib/mozilla/native-messaging-hosts/com.vicinae.vicinae.json
-
-%license LICENSE
-
 %changelog
-* Mon May 18 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-8
-- fix: Remove compile flags from test (quadratech188@gmail.com)
+* Thu Jul 30 2026 Quadratech188 <quadratech188@gmail.com> 0.24.0-2
+- fix: Add Qt6LinguistTools to dependencies (quadratech188@gmail.com)
 
-* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-7
-- test: Try removing C++26 fix (quadratech188@gmail.com)
+* Tue Jul 28 2026 quadratech188 <quadratech188@gmail.com> 0.24.0-1
+- chore: Bump to v0.24.0 (quadratech188@gmail.com)
 
-* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-6
-- fix Includ %%{buildroot} in commands (quadratech188@gmail.com)
+* Sun Jul 19 2026 quadratech188 <quadratech188@gmail.com> 0.23.2-1
+- chore: Bump to v0.23.2 (quadratech188@gmail.com)
+- chore: Update description (quadratech188@gmail.com)
 
-* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-5
-- fix: Correct tar dir name (quadratech188@gmail.com)
+* Fri Jul 10 2026 quadratech188 <quadratech188@gmail.com> 0.23.1-1
+- chore: Bump to v0.23.1 (quadratech188@gmail.com)
 
-* Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-4
-- fix: Add saturate-fix.patch to vicinae-test (quadratech188@gmail.com)
+* Wed Jul 08 2026 Quadratech188 <quadratech188@gmail.com> 0.23.0-2
+- fix: Remove native host manifests see
+  https://github.com/vicinaehq/vicinae/pull/1599 (quadratech188@gmail.com)
 
+* Wed Jul 08 2026 quadratech188 <quadratech188@gmail.com> 0.23.0-1
+- chore: Bump to v0.23.0 (quadratech188@gmail.com)
+
+* Fri Jul 03 2026 quadratech188 <quadratech188@gmail.com> 0.22.3-1
+- chore: Bump to v0.22.3 (quadratech188@gmail.com)
+
+* Thu Jul 02 2026 quadratech188 <quadratech188@gmail.com> 0.22.2-1
+- chore: Bump to v0.22.2 (quadratech188@gmail.com)
+
+* Mon Jun 22 2026 quadratech188 <quadratech188@gmail.com> 0.22.0-1
+- chore: Bump to v0.22.0 (quadratech188@gmail.com)
+
+* Mon Jun 15 2026 quadratech188 <quadratech188@gmail.com> 0.21.7-1
+- chore: Bump to v0.21.7 (quadratech188@gmail.com)
+
+* Sun Jun 07 2026 Quadratech188 <quadratech188@gmail.com> 0.21.6-3
+- fix: Add vicinae-file-indexer (quadratech188@gmail.com)
+
+* Sun Jun 07 2026 Quadratech188 <quadratech188@gmail.com> 0.21.6-2
+- fix: Add XCB as dependency (quadratech188@gmail.com)
+
+* Sun Jun 07 2026 quadratech188 <quadratech188@gmail.com> 0.21.6-1
+- chore: Bump to v0.21.6 (quadratech188@gmail.com)
+
+* Mon Jun 01 2026 quadratech188 <quadratech188@gmail.com> 0.21.5-1
+- chore: Bump to v0.21.5 (quadratech188@gmail.com)
+
+* Mon Jun 01 2026 quadratech188 <quadratech188@gmail.com> 0.21.4-1
+- chore: Bump to v0.21.4 (quadratech188@gmail.com)
+
+* Sun May 31 2026 quadratech188 <quadratech188@gmail.com> 0.21.3-1
+- chore: Bump to v0.21.3 (quadratech188@gmail.com)
+
+* Wed May 27 2026 quadratech188 <quadratech188@gmail.com> 0.21.2-1
+- chore: Bump to v0.21.2 (quadratech188@gmail.com)
+
+* Mon May 25 2026 quadratech188 <quadratech188@gmail.com> 0.21.1-1
+- chore: Bump to v0.21.1 (quadratech188@gmail.com)
+
+* Tue May 19 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-6
+- feat: add explicit layer-shell-qt runtime dependency (gh@aurelle.dev)
+
+* Mon May 18 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-5
+- fix: Remove saturate-fix (quadratech188@gmail.com)
+* Mon May 18 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-4
+- Automatic commit of package [vicinae-test] minor release [0.21.0-7].
+  (quadratech188@gmail.com)
+- Bump Qt version
 * Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-3
-- test: Test 0.21.0 changes (quadratech188@gmail.com)
-
+- feat: 0.21.0 (quadratech188@gmail.com)
 * Thu May 14 2026 Quadratech188 <quadratech188@gmail.com> 0.21.0-2
 - fix: Add qt6-qtshadertools-devel to dependencies (quadratech188@gmail.com)
 
