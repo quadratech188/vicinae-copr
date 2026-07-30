@@ -1,9 +1,8 @@
 import json
-from pathlib import Path
 import re
 import subprocess
-import urllib.request
 import requests
+import os
 
 def get_v():
     response = json.loads(requests.get(
@@ -49,11 +48,7 @@ def update_spec(v: list[int]):
     with open('./vicinae.spec', 'w') as f:
         _ = f.write(''.join(spec))
 
-def update_tarball(prev_v: list[int], v: list[int]):
-    url = f'https://github.com/vicinaehq/vicinae/archive/refs/tags/v{'.'.join(map(str, v))}.tar.gz'
-
-    Path(f'./v{'.'.join(map(str, prev_v))}.tar.gz').unlink()
-    _ = urllib.request.urlretrieve(url, f'./v{'.'.join(map(str, v))}.tar.gz')
+webhook_url = os.environ['COPR_WEBHOOK_URL']
 
 prev_v = get_prev_v()
 v = get_v()
@@ -69,7 +64,6 @@ prev_hash = subprocess.run(
 ).stdout.rstrip('\n')
 
 update_spec(v)
-update_tarball(prev_v, v)
 update_prev_v(v)
 
 try:
@@ -80,3 +74,5 @@ try:
 except Exception as e:
     _ = subprocess.run(['git', 'reset', '--hard', prev_hash], check=True)
     raise e
+
+requests.post(webhook_url)
