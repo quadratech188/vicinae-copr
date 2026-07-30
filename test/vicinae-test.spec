@@ -1,6 +1,6 @@
 Name: vicinae-test
 Version: 0.24.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -107,6 +107,9 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_datadir}/vicinae/themes/*
 
 %changelog
+* Thu Jul 30 2026 Quadratech188 <quadratech188@gmail.com> 0.24.0-4
+- fix(test): Add ninja build system (quadratech188@gmail.com)
+
 * Thu Jul 30 2026 Quadratech188 <quadratech188@gmail.com> 0.24.0-3
 - refactor(test): Rewrite dependencies (quadratech188@gmail.com)
 - fix: Carry over fixes to vicinae-test (quadratech188@gmail.com)
