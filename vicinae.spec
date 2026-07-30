@@ -2,7 +2,7 @@
 
 Name: vicinae
 Version: 0.24.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 %{forgemeta}
@@ -109,6 +109,9 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_datadir}/vicinae/themes/*
 
 %changelog
+* Thu Jul 30 2026 Quadratech188 <quadratech188@gmail.com> 0.24.0-4
+- refactor: Use forge macros (quadratech188@gmail.com)
+
 * Thu Jul 30 2026 Quadratech188 <quadratech188@gmail.com> 0.24.0-3
 - refactor: Rewrite BuildRequires (quadratech188@gmail.com)
 * Thu Jul 30 2026 Quadratech188 <quadratech188@gmail.com> 0.24.0-2
