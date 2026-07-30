@@ -11,6 +11,7 @@ BuildRequires: cmake
 BuildRequires: g++
 BuildRequires: git
 BuildRequires: mold
+BuildRequires: ninja-build
 BuildRequires: nodejs-npm
 BuildRequires: yq
 
