@@ -1,6 +1,6 @@
 Name: vicinae
 Version: 0.24.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 License: GPLv3
@@ -105,6 +105,9 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 %{_datadir}/vicinae/themes/*
 
 %changelog
+* Thu Jul 30 2026 Quadratech188 <quadratech188@gmail.com> 0.24.0-2
+- fix: Add Qt6LinguistTools to dependencies (quadratech188@gmail.com)
+
 * Tue Jul 28 2026 quadratech188 <quadratech188@gmail.com> 0.24.0-1
 - chore: Bump to v0.24.0 (quadratech188@gmail.com)
 
