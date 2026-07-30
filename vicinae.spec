@@ -7,39 +7,41 @@ License: GPLv3
 URL: https://github.com/vicinaehq/vicinae
 Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
 
-# https://docs.vicinae.com/build#build-requirements
-BuildRequires: git
-BuildRequires: g++
 BuildRequires: cmake
-BuildRequires: npm
+BuildRequires: g++
+BuildRequires: git
+BuildRequires: mold
 BuildRequires: ninja-build
+BuildRequires: nodejs-npm
 BuildRequires: yq
 
-BuildRequires: abseil-cpp-devel 
-BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmark-gfm-devel
-BuildRequires: glibc-static 
-BuildRequires: kf6-syntax-highlighting-devel
-BuildRequires: layer-shell-qt-devel 
-BuildRequires: libicu-devel
-BuildRequires: libqalculate-devel 
-BuildRequires: libstdc++-static 
-BuildRequires: minizip-devel 
-BuildRequires: openssl-devel 
-BuildRequires: protobuf-devel 
-BuildRequires: qt6-qtbase-devel 
-BuildRequires: qt6-qtbase-private-devel 
-BuildRequires: qt6-qtshadertools-devel
-BuildRequires: qt6-qtsvg-devel 
-BuildRequires: qt6-qtwayland-devel 
-BuildRequires: qtkeychain-qt6-devel 
-BuildRequires: rapidfuzz-cpp-devel 
-BuildRequires: wayland-devel 
-BuildRequires: xcb-util-keysyms-devel
-BuildRequires: zlib-devel 
-BuildRequires: zlib-static 
+# CMakeLists.txt
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: pkgconfig(openssl)
 
-Requires: layer-shell-qt
+# src/server/CMakeLists.txt
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6GuiPrivate)
+BuildRequires: cmake(Qt6QuickDialogs2)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6ShaderTools)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(KF6SyntaxHighlighting)
+BuildRequires: cmake(LayerShellQt)
+BuildRequires: pkgconfig(xcb-keysyms)
+
+# Unspecified
+BuildRequires: cmake(Qt6Keychain)
+BuildRequires: pkgconfig(libcmark-gfm)
+BuildRequires: pkgconfig(libqalculate)
+
+Requires: qt6qml(org.kde.layershell)
 Recommends: nodejs(engine)
 
 %description
