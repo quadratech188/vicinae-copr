@@ -1,11 +1,14 @@
+%global forgeurl https://github.com/vicinaehq/vicinae
+
 Name: vicinae-test
 Version: 0.24.0
 Release: 5%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
+%{forgemeta}
 License: GPLv3
-URL: https://github.com/vicinaehq/vicinae
-Source0: https://github.com/vicinaehq/vicinae/archive/refs/tags/v%{version}.tar.gz
+URL: %{forgeurl}
+Source0: %{forgesource}
 
 BuildRequires: cmake
 BuildRequires: g++
@@ -71,7 +74,7 @@ When you need more, Vicinae can be extended in several ways:
 - dmenu style menu creation, the linux minimalist way!
 
 %prep
-%autosetup -p1 -n vicinae-%{version}
+%forgeautosetup
 
 
 %build
