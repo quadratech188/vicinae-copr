@@ -39,6 +39,9 @@ BuildRequires: cmake(KF6SyntaxHighlighting)
 BuildRequires: cmake(LayerShellQt)
 BuildRequires: pkgconfig(xcb-keysyms)
 
+# cmake/Wayland.cmake
+BuildRequires: pkgconfig(wayland-protocols)
+
 # Unspecified
 BuildRequires: cmake(Qt6Keychain)
 BuildRequires: pkgconfig(libcmark-gfm)
