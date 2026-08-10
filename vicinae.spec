@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/vicinaehq/vicinae
 
 Name: vicinae
-Version: 0.24.0
-Release: 4%{?dist}
+Version: 0.25.0
+Release: 0%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 %{forgemeta}
@@ -405,4 +405,3 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 - new package built with tito
 
 %autochangelog
-
