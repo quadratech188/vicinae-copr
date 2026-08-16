@@ -2,7 +2,7 @@
 
 Name: vicinae
 Version: 0.26.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
 %{forgemeta}
