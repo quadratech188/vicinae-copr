@@ -35,6 +35,7 @@ BuildRequires: cmake(Qt6QuickDialogs2)
 BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6ShaderTools)
 BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(numen)
 BuildRequires: cmake(KF6SyntaxHighlighting)
 BuildRequires: cmake(LayerShellQt)
 BuildRequires: pkgconfig(xcb-keysyms)
@@ -90,6 +91,12 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH} \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DBUILD_SHARED_LIBS=OFF \
+	-DUSE_SYSTEM_CMARK_GFM=ON \
+	-DUSE_SYSTEM_LAYER_SHELL=ON \
+	-DUSE_SYSTEM_KF6=ON \
+	-DUSE_SYSTEM_GLAZE=OFF \
+	-DUSE_SYSTEM_QT_KEYCHAIN=ON \
+	-DUSE_SYSTEM_NUMEN=ON
 %cmake_build
 
 %install
