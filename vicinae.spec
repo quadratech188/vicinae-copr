@@ -45,7 +45,6 @@ BuildRequires: pkgconfig(wayland-protocols)
 
 # Unspecified
 BuildRequires: cmake(Qt6Keychain)
-BuildRequires: pkgconfig(libcmark-gfm)
 BuildRequires: pkgconfig(libqalculate)
 
 Requires: qt6qml(org.kde.layershell)
@@ -91,7 +90,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH} \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DBUILD_SHARED_LIBS=OFF \
-	-DUSE_SYSTEM_CMARK_GFM=ON \
+	-DUSE_SYSTEM_CMARK_GFM=OFF \
 	-DUSE_SYSTEM_LAYER_SHELL=ON \
 	-DUSE_SYSTEM_KF6=ON \
 	-DUSE_SYSTEM_GLAZE=OFF \
