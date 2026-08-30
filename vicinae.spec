@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/vicinaehq/vicinae
 
 Name: vicinae
-Version: 0.27.4
+Version: 0.27.5
 Release: %autorelease
 Summary: A focused launcher for your desktop — native, fast, extensible 
 
