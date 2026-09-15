@@ -36,17 +36,31 @@ BuildRequires: cmake(Qt6QuickDialogs2)
 BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6ShaderTools)
 BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmake(numen)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6WaylandClient)
+
 BuildRequires: cmake(KF6SyntaxHighlighting)
+BuildRequires: cmake(numen)
+
+BuildRequires: cmake(qt6keychain)
+
+BuildRequires: pkgconfig(wayland-client)
+
 BuildRequires: cmake(LayerShellQt)
+
+BuildRequires: pkgconfig(libqalculate)
+
+BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xcb-keysyms)
+BuildRequires: pkgconfig(xcb-xkb)
 
 # cmake/Wayland.cmake
 BuildRequires: pkgconfig(wayland-protocols)
 
-# Unspecified
-BuildRequires: cmake(Qt6Keychain)
-BuildRequires: pkgconfig(libqalculate)
+# src/server/CMakeLists.txt
+BuildRequires: pkgconfig(xkbcommon)
+BuildRequires: pkgconfig(xkbcommon-x11)
+
 
 Requires: qt6qml(org.kde.layershell)
 Recommends: nodejs(engine)
@@ -86,7 +100,7 @@ VICINAE_GIT_TAG=$(yq '.release.tag' < manifest.yaml)
 VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
 %cmake -G Ninja \
-	-DVICINAE_PROVENANCE=copr \
+	-DVICINAE_PROVENANCE='Fedora COPR' \
 	-DVICINAE_GIT_TAG=v%{version} \
 	-DVICINAE_GIT_COMMIT_HASH=${VICINAE_GIT_COMMIT_HASH} \
 	-DCMAKE_BUILD_TYPE=Release \
