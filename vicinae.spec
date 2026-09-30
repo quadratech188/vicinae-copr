@@ -22,7 +22,7 @@ BuildRequires: yq
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Qml)
 BuildRequires: pkgconfig(openssl)
-BuildRequires: cmake(glaze)
+# BuildRequires: cmake(glaze)
 
 # src/server/CMakeLists.txt
 BuildRequires: cmake(Qt6Core)
@@ -108,7 +108,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 	-DUSE_SYSTEM_CMARK_GFM=OFF \
 	-DUSE_SYSTEM_LAYER_SHELL=ON \
 	-DUSE_SYSTEM_KF6=ON \
-	-DUSE_SYSTEM_GLAZE=ON \
+	-DUSE_SYSTEM_GLAZE=OFF \
 	-DUSE_SYSTEM_QT_KEYCHAIN=ON \
 	-DUSE_SYSTEM_NUMEN=ON
 %cmake_build
