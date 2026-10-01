@@ -92,7 +92,7 @@ When you need more, Vicinae can be extended in several ways:
 - dmenu style menu creation, the linux minimalist way!
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 %build
 
