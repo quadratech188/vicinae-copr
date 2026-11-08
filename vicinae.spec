@@ -36,6 +36,7 @@ BuildRequires: cmake(Qt6QuickDialogs2)
 BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6ShaderTools)
 BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6WaylandClient)
 
@@ -60,7 +61,6 @@ BuildRequires: pkgconfig(wayland-protocols)
 # src/server/CMakeLists.txt
 BuildRequires: pkgconfig(xkbcommon)
 BuildRequires: pkgconfig(xkbcommon-x11)
-
 
 Requires: qt6qml(org.kde.layershell)
 Recommends: nodejs(engine)
@@ -110,7 +110,10 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 	-DUSE_SYSTEM_KF6=ON \
 	-DUSE_SYSTEM_GLAZE=ON \
 	-DUSE_SYSTEM_QT_KEYCHAIN=ON \
-	-DUSE_SYSTEM_NUMEN=ON
+	-DUSE_SYSTEM_NUMEN=ON \
+	-DLOCAL_AI=ON \
+	-DUSE_SYSTEM_INFERENCE_ENGINES=OFF \
+	-DGGML_VULKAN=OFF
 %cmake_build
 
 %install
@@ -118,10 +121,7 @@ VICINAE_GIT_COMMIT_HASH=$(yq '.release.short_rev' < manifest.yaml)
 
 %files
 %{_bindir}/vicinae
-%{_libexecdir}/vicinae/vicinae-browser-link
-%{_libexecdir}/vicinae/vicinae-data-control-server
-%{_libexecdir}/vicinae/vicinae-server
-%{_libexecdir}/vicinae/vicinae-file-indexer
+%{_libexecdir}/vicinae
 
 %caps(cap_dac_override+ep) %{_libexecdir}/vicinae/vicinae-input-server
 
